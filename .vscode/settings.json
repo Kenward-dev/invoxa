@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+
+  "[python]": {
+    "editor.defaultFormatter": "astral-sh.ruff"
+  },
+
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  }
+}

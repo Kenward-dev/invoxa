@@ -23,9 +23,7 @@ dependencies = [
     "jinja2>=3.1.4",
     "python-dateutil>=2.9.0",
     "httpx>=0.27.0",
-    "aiosqlite>=0.20.0",
     "psycopg[binary]>=3.1.19",
-    "starlette>=0.40.0",
 ]
 
 [dependency-groups]
@@ -64,6 +62,14 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
 [tool.mypy]
 python_version = "3.11"
 strict = false
@@ -76,7 +82,6 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["app"]
-
 omit = [
     "tests/*",
     "alembic/*",
