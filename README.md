@@ -26,7 +26,6 @@ A lightweight multi-tenant invoice management SaaS. Businesses can create custom
   - [Commit Convention](#commit-convention)
   - [Pre-commit Hooks](#pre-commit-hooks)
 - [CI/CD](#cicd)
-- [Sprint Plan](#sprint-plan)
 - [Contributing](#contributing)
 
 ## Features
@@ -79,7 +78,7 @@ A lightweight multi-tenant invoice management SaaS. Businesses can create custom
 | Package manager | `uv` |
 | Linter and formatter | Ruff |
 | Type checker | mypy |
-| Testing | pytest + pytest-asyncio |
+| Testing | pytest + pytest-cov |
 | Frontend framework | React 18 + Vite |
 | Styling | TailwindCSS |
 | State management | Zustand |

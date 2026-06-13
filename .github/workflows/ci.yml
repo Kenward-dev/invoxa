@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main, dev]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   pre-commit:
     name: Pre-commit
@@ -27,8 +30,8 @@ jobs:
       - name: Run pre-commit hooks
         run: uv run --project backend pre-commit run --all-files --show-diff-on-failure
 
-  backend-type-check:
-    name: Backend — Type Check
+  backend-checks:
+    name: Backend — Type Check & Tests
     runs-on: ubuntu-latest
     needs: pre-commit
     defaults:
@@ -50,29 +53,9 @@ jobs:
       - name: mypy
         run: uv run mypy app
 
-  backend-test:
-    name: Backend — Tests
-    runs-on: ubuntu-latest
-    needs: pre-commit
-    defaults:
-      run:
-        working-directory: backend
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v5
-        with:
-          version: "0.11.21"
-          enable-cache: true
-          cache-dependency-glob: "backend/uv.lock"
-
-      - name: Install dependencies
-        run: uv sync --locked
-
       - name: Run tests
         env:
           ENVIRONMENT: test
-          DATABASE_URL: sqlite+aiosqlite:///./test.db
+          DATABASE_URL: sqlite:///./test.db
           SECRET_KEY: test-secret-key-for-ci-only
         run: uv run pytest --cov=app --cov-report=term-missing -q
