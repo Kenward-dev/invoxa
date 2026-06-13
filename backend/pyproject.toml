@@ -2,6 +2,12 @@
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+py-modules = ["main"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
 [project]
 name = "invoicio-backend"
 version = "0.1.0"
@@ -78,6 +84,7 @@ check_untyped_defs = true
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+pythonpath = ["."]
 testpaths = ["tests"]
 
 [tool.coverage.run]
