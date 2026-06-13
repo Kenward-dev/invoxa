@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [main, dev]
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-
 jobs:
   pre-commit:
     name: Pre-commit
@@ -24,8 +21,8 @@ jobs:
           cache-dependency-glob: "backend/uv.lock"
 
       - name: Install dependencies
-        run: uv sync --locked
         working-directory: backend
+        run: uv sync --frozen
 
       - name: Run pre-commit hooks
         run: uv run --project backend pre-commit run --all-files --show-diff-on-failure
@@ -34,6 +31,7 @@ jobs:
     name: Backend — Type Check & Tests
     runs-on: ubuntu-latest
     needs: pre-commit
+
     defaults:
       run:
         working-directory: backend
@@ -48,9 +46,9 @@ jobs:
           cache-dependency-glob: "backend/uv.lock"
 
       - name: Install dependencies
-        run: uv sync --locked
+        run: uv sync --frozen
 
-      - name: mypy
+      - name: Run mypy
         run: uv run mypy app
 
       - name: Run tests
